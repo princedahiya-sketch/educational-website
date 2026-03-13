@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aldenvale University</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f5f0e8;
+    --white: #ffffff;
+    --gray: #6b7280;
+    --light-gray: #e8e4dc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(13, 27, 42, 0.97);
+    backdrop-filter: blur(10px);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .logo-crest {
+    width: 36px; height: 36px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--navy) !important;
+    padding: 8px 20px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.05em !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    position: relative;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 8% 80px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 70% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 80% at 10% 80%, rgba(201,168,76,0.05) 0%, transparent 50%);
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: linear-gradient(rgba(201,168,76,1) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(201,168,76,1) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    color: var(--gold);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 6px 16px;
+    margin-bottom: 2rem;
+    width: fit-content;
+    opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.05;
+    max-width: 800px;
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero p {
+    color: rgba(255,255,255,0.6);
+    font-size: 1.1rem;
+    font-weight: 300;
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-buttons {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 14px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    border: none; cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    padding: 14px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    opacity: 0; animation: fadeUp 0.8s ease 1s forwards;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* ACADEMICS */
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-tag {
+    display: inline-block;
+    color: var(--gold);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--navy);
+  }
+
+  .section-title .italic { font-style: italic; color: var(--gold); }
+
+  .academics {
+    padding: 100px 8%;
+    background: var(--cream);
+  }
+
+  .colleges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5px;
+    background: var(--light-gray);
+    border: 1.5px solid var(--light-gray);
+  }
+
+  .college-card {
+    background: var(--white);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .college-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 3px; width: 0;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+
+  .college-card:hover { background: var(--navy); }
+  .college-card:hover::after { width: 100%; }
+  .college-card:hover .college-name { color: var(--white); }
+  .college-card:hover .college-desc { color: rgba(255,255,255,0.55); }
+  .college-card:hover .college-icon { color: var(--gold); }
+  .college-card:hover .college-count { color: rgba(255,255,255,0.4); }
+
+  .college-icon {
+    font-size: 2rem; margin-bottom: 1.2rem;
+    transition: color 0.3s;
+  }
+
+  .college-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    transition: color 0.3s;
+  }
+
+  .college-desc {
+    font-size: 0.85rem;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+    transition: color 0.3s;
+  }
+
+  .college-count {
+    font-size: 0.75rem;
+    color: #aaa;
+    letter-spacing: 0.08em;
+    transition: color 0.3s;
+  }
+
+  /* CAMPUS LIFE */
+  .campus-life {
+    padding: 100px 8%;
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .campus-life .section-title { color: var(--white); }
+  .campus-life .section-tag { color: var(--gold); }
+
+  .campus-bento {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 220px);
+    gap: 12px;
+  }
+
+  .bento-card {
+    border-radius: 4px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  .bento-card:hover { transform: scale(1.02); }
+
+  .bento-card.wide { grid-column: span 2; }
+
+  .bento-card-1 { background: linear-gradient(135deg, #1a3a5c 0%, #0d1b2a 100%); }
+  .bento-card-2 { background: linear-gradient(135deg, #2d1f0e 0%, #0d1b2a 100%); }
+  .bento-card-3 { background: linear-gradient(135deg, #1a2a1a 0%, #0d1b2a 100%); }
+  .bento-card-4 { background: linear-gradient(135deg, #2a1a2a 0%, #0d1b2a 100%); }
+  .bento-card-5 { background: linear-gradient(135deg, #1a1a2a 0%, #0d1b2a 100%); }
+
+  .bento-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+  .bento-title {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+
+  .bento-desc { color: rgba(255,255,255,0.5); font-size: 0.8rem; line-height: 1.5; }
+
+  .bento-accent {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    color: var(--gold); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+  }
+
+  /* ADMISSIONS */
+  .admissions {
+    padding: 100px 8%;
+    background: var(--white);
+  }
+
+  .admission-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .admission-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  .admission-content p {
+    color: var(--gray);
+    line-height: 1.8;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+
+  .deadlines {
+    display: flex; flex-direction: column; gap: 1px;
+    background: var(--light-gray);
+    border: 1px solid var(--light-gray);
+    margin-bottom: 2rem;
+  }
+
+  .deadline-row {
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--white);
+    padding: 1rem 1.2rem;
+  }
+
+  .deadline-type { font-size: 0.85rem; font-weight: 500; }
+  .deadline-date {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .requirements-card {
+    background: var(--cream);
+    padding: 2.5rem;
+    border-left: 3px solid var(--gold);
+  }
+
+  .req-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .req-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .req-list li {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: 0.9rem; color: var(--gray);
+  }
+
+  .req-list li::before {
+    content: '→';
+    color: var(--gold);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  /* NEWS */
+  .news {
+    padding: 100px 8%;
+    background: var(--cream);
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .news-card {
+    background: var(--white);
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  .news-card:hover { transform: translateY(-4px); }
+
+  .news-card-img {
+    height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+  }
+
+  .news-card.featured .news-card-img { height: 240px; }
+
+  .nc-1 { background: linear-gradient(135deg, #1a3a5c, #0d2a3a); }
+  .nc-2 { background: linear-gradient(135deg, #3a2a1a, #2a1a0a); }
+  .nc-3 { background: linear-gradient(135deg, #1a2a1a, #0a1a0a); }
+
+  .news-card-body { padding: 1.5rem; }
+  .news-cat {
+    font-size: 0.7rem; color: var(--gold);
+    letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  .news-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+  }
+
+  .news-card.featured .news-title { font-size: 1.3rem; }
+
+  .news-date { font-size: 0.75rem; color: #aaa; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    color: var(--white);
+    padding: 60px 8% 30px;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .footer-brand p {
+    color: rgba(255,255,255,0.45);
+    font-size: 0.85rem;
+    line-height: 1.7;
+    margin-top: 1rem;
+    max-width: 250px;
+  }
+
+  .footer-col h4 {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+
+  .footer-col ul li a {
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+
+  .footer-col ul li a:hover { color: var(--gold); }
+
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .footer-bottom p { color: rgba(255,255,255,0.3); font-size: 0.8rem; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .campus-bento { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .bento-card.wide { grid-column: span 2; }
+    .admission-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .news-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-crest">A</div>
+    Aldenvale University
+  </div>
+  <ul class="nav-links">
+    <li><a href="#academics">Academics</a></li>
+    <li><a href="#campus">Campus Life</a></li>
+    <li><a href="#admissions">Admissions</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#admissions" class="nav-cta">Apply Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div style="position:relative; z-index:2;">
+    <div class="hero-tag">Est. 1887 · Excellence in Education</div>
+    <h1>Where Knowledge<br>Becomes <em>Legacy</em></h1>
+    <p>Aldenvale University has shaped leaders, innovators, and thinkers for over a century. Discover a community dedicated to intellectual rigor, research, and the betterment of humanity.</p>
+    <div class="hero-buttons">
+      <a href="#admissions" class="btn-primary">Explore Programs</a>
+      <a href="#admissions" class="btn-secondary">Apply for 2026 →</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">24,000+</div>
+        <div class="stat-label">Students Enrolled</div>
+      </div>
+      <div>
+        <div class="stat-num">140+</div>
+        <div class="stat-label">Academic Programs</div>
+      </div>
+      <div>
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Graduate Employment</div>
+      </div>
+      <div>
+        <div class="stat-num">Top 25</div>
+        <div class="stat-label">National Ranking</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACADEMICS -->
+<section class="academics" id="academics">
+  <div class="section-header reveal">
+    <div class="section-tag">Academic Excellence</div>
+    <h2 class="section-title">Discover Your <span class="italic">Discipline</span></h2>
+  </div>
+  <div class="colleges-grid reveal">
+    <div class="college-card">
+      <div class="college-icon">⚗️</div>
+      <div class="college-name">Sciences & Engineering</div>
+      <div class="college-desc">Cutting-edge research facilities and world-class faculty advancing discovery across disciplines.</div>
+      <div class="college-count">42 Programs · 6,200 Students</div>
+    </div>
+    <div class="college-card">
+      <div class="college-icon">📜</div>
+      <div class="college-name">Humanities & Arts</div>
+      <div class="college-desc">Explore the full richness of human culture, history, language, and creative expression.</div>
+      <div class="college-count">31 Programs · 4,100 Students</div>
+    </div>
+    <div class="college-card">
+      <div class="college-icon">📊</div>
+      <div class="college-name">Business & Economics</div>
+      <div class="college-desc">Develop strategic thinking and analytical skills for a complex global economy.</div>
+      <div class="college-count">18 Programs · 5,800 Students</div>
+    </div>
+    <div class="college-card">
+      <div class="college-icon">⚖️</div>
+      <div class="college-name">Law & Policy</div>
+      <div class="college-desc">Rigorous legal education grounded in ethics, justice, and public service.</div>
+      <div class="college-count">12 Programs · 2,400 Students</div>
+    </div>
+    <div class="college-card">
+      <div class="college-icon">🏥</div>
+      <div class="college-name">Medicine & Health</div>
+      <div class="college-desc">Training the next generation of physicians, researchers, and healthcare leaders.</div>
+      <div class="college-count">22 Programs · 3,900 Students</div>
+    </div>
+    <div class="college-card">
+      <div class="college-icon">🌐</div>
+      <div class="college-name">Social Sciences</div>
+      <div class="college-desc">Understanding society, human behavior, and the forces that shape our world.</div>
+      <div class="college-count">24 Programs · 4,600 Students</div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPUS LIFE -->
+<section class="campus-life" id="campus">
+  <div class="section-header reveal">
+    <div class="section-tag">Life at Aldenvale</div>
+    <h2 class="section-title" style="color:var(--white);">Beyond the <span class="italic">Classroom</span></h2>
+  </div>
+  <div class="campus-bento reveal">
+    <div class="bento-card bento-card-1 wide">
+      <div class="bento-accent">150+ Clubs</div>
+      <div class="bento-icon">🎭</div>
+      <div class="bento-title">Arts & Culture</div>
+      <div class="bento-desc">Theaters, galleries, music halls, and student-run publications defining campus culture.</div>
+    </div>
+    <div class="bento-card bento-card-2">
+      <div class="bento-icon">🏆</div>
+      <div class="bento-title">Athletics</div>
+      <div class="bento-desc">NCAA Division I teams across 22 varsity sports.</div>
+    </div>
+    <div class="bento-card bento-card-3">
+      <div class="bento-icon">🔬</div>
+      <div class="bento-title">Research</div>
+      <div class="bento-desc">Undergraduate research opportunities at 40+ labs.</div>
+    </div>
+    <div class="bento-card bento-card-4">
+      <div class="bento-icon">🌍</div>
+      <div class="bento-title">Study Abroad</div>
+      <div class="bento-desc">Partner universities in 65 countries worldwide.</div>
+    </div>
+    <div class="bento-card bento-card-5 wide">
+      <div class="bento-accent">12 Residence Halls</div>
+      <div class="bento-icon">🏛️</div>
+      <div class="bento-title">Residential Life</div>
+      <div class="bento-desc">A vibrant on-campus community with dining, wellness, and student services all within walking distance.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSIONS -->
+<section class="admissions" id="admissions">
+  <div class="admission-layout">
+    <div class="admission-content reveal">
+      <div class="section-tag">Admissions</div>
+      <h2 class="section-title">Begin Your<br><span class="italic">Journey Here</span></h2>
+      <p>We seek curious, driven students ready to challenge themselves and contribute to a community that values both academic excellence and human connection. We review applications holistically.</p>
+      <div class="deadlines">
+        <div class="deadline-row" style="background:var(--cream);">
+          <span style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#aaa;">Application Round</span>
+          <span style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#aaa;">Deadline</span>
+        </div>
+        <div class="deadline-row">
+          <div class="deadline-type">Early Decision</div>
+          <div class="deadline-date">Nov 1, 2026</div>
+        </div>
+        <div class="deadline-row">
+          <div class="deadline-type">Early Action</div>
+          <div class="deadline-date">Nov 15, 2026</div>
+        </div>
+        <div class="deadline-row">
+          <div class="deadline-type">Regular Decision</div>
+          <div class="deadline-date">Jan 5, 2027</div>
+        </div>
+        <div class="deadline-row">
+          <div class="deadline-type">Transfer Students</div>
+          <div class="deadline-date">Mar 1, 2027</div>
+        </div>
+      </div>
+      <a href="#" class="btn-primary">Start Application</a>
+    </div>
+    <div class="requirements-card reveal" style="transition-delay:0.2s;">
+      <div class="req-title">What We Look For</div>
+      <ul class="req-list">
+        <li>Completed high school transcript</li>
+        <li>SAT/ACT scores (test-optional 2026–27)</li>
+        <li>Two letters of recommendation</li>
+        <li>Personal statement (650 words)</li>
+        <li>Extracurricular activities record</li>
+        <li>Application fee or fee waiver</li>
+        <li>School counselor report</li>
+        <li>Supplemental essays (2 short answers)</li>
+      </ul>
+      <div style="margin-top:2rem; padding-top:1.5rem; border-top: 1px solid var(--light-gray);">
+        <div style="font-size:0.75rem;color:#aaa;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;">Acceptance Rate</div>
+        <div style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);font-weight:700;">14%</div>
+        <div style="font-size:0.8rem;color:var(--gray);margin-top:0.3rem;">Class of 2028 · 2,100 students admitted</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="news" id="news">
+  <div class="section-header reveal">
+    <div class="section-tag">Latest News</div>
+    <h2 class="section-title">From Our <span class="italic">Community</span></h2>
+  </div>
+  <div class="news-grid reveal">
+    <div class="news-card featured">
+      <div class="news-card-img nc-1">🧬</div>
+      <div class="news-card-body">
+        <div class="news-cat">Research</div>
+        <div class="news-title">Aldenvale Researchers Secure $42M Grant for Genomics Institute</div>
+        <div class="news-date">March 10, 2026</div>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="news-card-img nc-2">🏅</div>
+      <div class="news-card-body">
+        <div class="news-cat">Athletics</div>
+        <div class="news-title">Eagles Win Conference Championship for Third Consecutive Year</div>
+        <div class="news-date">March 8, 2026</div>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="news-card-img nc-3">🎓</div>
+      <div class="news-card-body">
+        <div class="news-cat">Academic</div>
+        <div class="news-title">New Sustainability Curriculum Launches Across All Colleges</div>
+        <div class="news-date">March 5, 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo" style="font-size:1.2rem;">
+        <div class="logo-crest" style="width:30px;height:30px;font-size:0.85rem;">A</div>
+        Aldenvale University
+      </div>
+      <p>Shaping curious minds and building tomorrow's leaders since 1887.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Academics</h4>
+      <ul>
+        <li><a href="#">Undergraduate</a></li>
+        <li><a href="#">Graduate</a></li>
+        <li><a href="#">Online Programs</a></li>
+        <li><a href="#">Continuing Ed</a></li>
+        <li><a href="#">Research</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Campus</h4>
+      <ul>
+        <li><a href="#">Student Life</a></li>
+        <li><a href="#">Housing</a></li>
+        <li><a href="#">Athletics</a></li>
+        <li><a href="#">Health Services</a></li>
+        <li><a href="#">Library</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Alumni</a></li>
+        <li><a href="#">Giving</a></li>
+        <li><a href="#">Campus Map</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Aldenvale University. All rights reserved.</p>
+    <p>Privacy Policy · Accessibility · Non-Discrimination</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+<!-- Watson Assistant Chat -->
+<script>
+  window.watsonAssistantChatOptions = {
+    integrationID: "bb1951d5-1c7d-422e-abf2-a671c12b8bd7",
+    region: "au-syd",
+    serviceInstanceID: "6f4e2c42-8c5a-49f6-a7ec-fc13d175fb22",
+    onLoad: async (instance) => {
+      await instance.render();
+      // Match the chat button to the university's gold theme
+      instance.updateCSSVariables({
+        'BASE-PRIMARY-COLOR': '#c9a84c',
+        'BASE-PRIMARY-COLOR-DARK': '#0d1b2a',
+        'BASE-FONT-FAMILY': "'DM Sans', sans-serif",
+      });
+    }
+  };
+  setTimeout(function(){
+    const t = document.createElement('script');
+    t.src = "https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+    document.head.appendChild(t);
+  });
+</script>
+
+</body>
+</html>
